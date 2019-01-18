@@ -13,11 +13,6 @@ RUN dpkg --add-architecture i386 \
 ENV ANDROID_HOME="/home/user/android-sdk-linux" \
     SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip" 
 
-# Create a non-root user
-RUN useradd -m user
-USER user
-WORKDIR /home/user
-
 # Download Android SDK
 RUN mkdir "$ANDROID_HOME" .android \
  && cd "$ANDROID_HOME" \
