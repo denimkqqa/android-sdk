@@ -1,6 +1,6 @@
 FROM openjdk:8
 
-MAINTAINER Dmitry Karikh <the.dr.hax@gmail.com>
+MAINTAINER Oleksii Dankov <denimkqqa@gmail.com>
 
 # Install Git and dependencies
 RUN dpkg --add-architecture i386 \
@@ -12,7 +12,6 @@ RUN dpkg --add-architecture i386 \
 # Set up environment variables
 ENV ANDROID_HOME="/home/user/android-sdk-linux" \
     SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip" \
-    GRADLE_URL="https://services.gradle.org/distributions/gradle-4.5.1-all.zip"
 
 # Create a non-root user
 RUN useradd -m user
@@ -27,11 +26,19 @@ RUN mkdir "$ANDROID_HOME" .android \
  && rm sdk.zip \
  && yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
-# Install Gradle
-RUN wget $GRADLE_URL -O gradle.zip \
- && unzip gradle.zip \
- && mv gradle-4.5.1 gradle \
- && rm gradle.zip \
- && mkdir .gradle
+# Install Kotlin
+RUN cd /usr/lib && \
+    wget https://github.com/JetBrains/kotlin/releases/download/v1.3.11/kotlin-compiler-1.3.11.zip && \
+    unzip kotlin-compiler-*.zip && \
+    rm kotlin-compiler-*.zip && \
+    rm -f kotlinc/bin/*.bat
 
-ENV PATH="/home/user/gradle/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}"
+ENV PATH $PATH:/usr/lib/kotlinc/bin
+RUN 
+CMD ["kotlinc"]
+#installl 
+RUN $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-28"
+RUN $ANDROID_HOME/tools/bin/sdkmanager "build-tools;28.0.1"
+
+ENV BUILD_TOOLS "/home/user/android-sdk-linux/build-tools/28.0.1/"
+ENV PLATFORM "/home/user/android-sdk-linux/platforms/android-28/android.jar"
