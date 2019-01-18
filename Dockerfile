@@ -34,7 +34,7 @@ RUN cd /usr/lib && \
     rm -f kotlinc/bin/*.bat
 
 ENV PATH $PATH:/usr/lib/kotlinc/bin
-RUN 
+ 
 CMD ["kotlinc"]
 #installl 
 RUN $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-28"
