@@ -11,7 +11,7 @@ RUN dpkg --add-architecture i386 \
 
 # Set up environment variables
 ENV ANDROID_HOME="/home/user/android-sdk-linux" \
-    SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip" \
+    SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip" 
 
 # Create a non-root user
 RUN useradd -m user
@@ -27,9 +27,21 @@ RUN mkdir "$ANDROID_HOME" .android \
  && yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
 
-#installl build tools
-RUN $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-28"
-RUN $ANDROID_HOME/tools/bin/sdkmanager "build-tools;28.0.1"
+#Installl build tools
+RUN /home/user/android-sdk-linux/tools/bin/sdkmanager "platforms;android-28"
+RUN /home/user/android-sdk-linux/tools/bin/sdkmanager "build-tools;28.0.1"
 
 ENV BUILD_TOOLS "/home/user/android-sdk-linux/build-tools/28.0.1/"
 ENV PLATFORM "/home/user/android-sdk-linux/platforms/android-28/android.jar"
+
+#install Kotlinc
+
+RUN cd /usr/lib && \
+    wget https://github.com/JetBrains/kotlin/releases/download/v1.3.11/kotlin-compiler-1.3.11.zip && \
+    unzip kotlin-compiler-*.zip && \
+    rm kotlin-compiler-*.zip && \
+    rm -f kotlinc/bin/*.bat
+
+ENV PATH $PATH:/usr/lib/kotlinc/bin
+
+CMD ["kotlinc"]
