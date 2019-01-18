@@ -10,7 +10,8 @@ RUN dpkg --add-architecture i386 \
  && rm -rf /var/lib/apt/lists /var/cache/apt
 
 # Set up environment variables
-ENV ANDROID_HOME="/home/user/android-sdk-linux" \
+ENV ANDROID_HOME="/root/
+android-sdk-linux" \
     SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip" 
 
 # Download Android SDK
@@ -23,11 +24,15 @@ RUN mkdir "$ANDROID_HOME" .android \
 
 
 #Installl build tools
-RUN /home/user/android-sdk-linux/tools/bin/sdkmanager "platforms;android-28"
-RUN /home/user/android-sdk-linux/tools/bin/sdkmanager "build-tools;28.0.1"
+RUN /root/
+android-sdk-linux/tools/bin/sdkmanager "platforms;android-28"
+RUN /root/
+android-sdk-linux/tools/bin/sdkmanager "build-tools;28.0.1"
 
-ENV BUILD_TOOLS "/home/user/android-sdk-linux/build-tools/28.0.1/"
-ENV PLATFORM "/home/user/android-sdk-linux/platforms/android-28/android.jar"
+ENV BUILD_TOOLS "/root/
+android-sdk-linux/build-tools/28.0.1/"
+ENV PLATFORM "/root/
+android-sdk-linux/platforms/android-28/android.jar"
 
 #install Kotlinc
 
