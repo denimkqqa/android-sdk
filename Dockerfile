@@ -23,11 +23,20 @@ RUN mkdir "$ANDROID_HOME" .android \
 
 
 #Installl build tools
-RUN /root/android-sdk-linux/tools/bin/sdkmanager "platforms;android-28"
-RUN /root/android-sdk-linux/tools/bin/sdkmanager "build-tools;28.0.1"
+RUN /root/android-sdk-linux/tools/bin/sdkmanager "platforms;android-27"
+RUN /root/android-sdk-linux/tools/bin/sdkmanager "build-tools;28.0.3"
 
 ENV BUILD_TOOLS "/root/android-sdk-linux/build-tools/28.0.1/"
 ENV PLATFORM "/root/android-sdk-linux/platforms/android-28/android.jar"
+
+# Install Gradle
+RUN wget $GRADLE_URL -O gradle.zip \
+ && unzip gradle.zip \
+ && mv gradle-4.5.1 gradle \
+ && rm gradle.zip \
+ && mkdir .gradle
+
+ENV PATH="/home/user/gradle/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}"
 
 #install Kotlinc
 
