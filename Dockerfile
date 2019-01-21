@@ -26,8 +26,8 @@ RUN mkdir "$ANDROID_HOME" .android \
 RUN /root/android-sdk-linux/tools/bin/sdkmanager "platforms;android-27"
 RUN /root/android-sdk-linux/tools/bin/sdkmanager "build-tools;28.0.3"
 
-ENV BUILD_TOOLS "/root/android-sdk-linux/build-tools/28.0.1/"
-ENV PLATFORM "/root/android-sdk-linux/platforms/android-28/android.jar"
+ENV BUILD_TOOLS "/root/android-sdk-linux/build-tools/28.0.3/"
+ENV PLATFORM "/root/android-sdk-linux/platforms/android-27/android.jar"
 
 # Install Gradle
 RUN wget $GRADLE_URL -O gradle.zip \
